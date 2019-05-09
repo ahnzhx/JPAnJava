@@ -1,8 +1,16 @@
 package com.example.sonniespringdev;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Account {
@@ -20,7 +28,7 @@ public class Account {
     private Address address;
 
     @OneToMany(mappedBy = "owner")
-    private Set<Study> studies = new HashSet<>();
+    private Set<Study> studies = new HashSet();
 
 
     public Set<Study> getStudies() {

@@ -1,15 +1,16 @@
 package com.example.sonniespringdev;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.RepositoryDefinition;
 
-import java.util.List;
-
 @RepositoryDefinition(domainClass = Comment.class, idClass = Long.class)
 public interface CommentRepository extends MyRepository<Comment, Long> {
-    Comment save(Comment comment);
+    // 아래 둘은 JpaRepository에 기본값으로 설정되어 있는 듯??!
+	Comment save(Comment comment);
     List<Comment> findAll();
 
     //코멘트에 키워드가 있는 것들을 모두 검색
