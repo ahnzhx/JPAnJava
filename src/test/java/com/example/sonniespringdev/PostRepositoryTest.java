@@ -1,5 +1,6 @@
 package com.example.sonniespringdev;
 
+import com.example.sonniespringdev.springDataCommon.PostRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,17 @@ public class PostRepositoryTest {
         assertThat(page.getNumber()).isEqualTo(0);
         assertThat(page.getSize()).isEqualTo(10);
         assertThat(page.getNumberOfElements()).isEqualTo(1);
+    }
+
+    @Test
+    public void crud(){
+
+        Post post = new Post();
+        post.setTitle("hibernate");
+        postRepository.save(post);
+        postRepository.findMyPost();
+
+        postRepository.delete(post);
+        postRepository.flush();
     }
 }

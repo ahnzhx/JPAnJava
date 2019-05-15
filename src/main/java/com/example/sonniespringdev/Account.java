@@ -1,11 +1,8 @@
 package com.example.sonniespringdev;
 
-<<<<<<< HEAD
+
 import lombok.Data;
 
-import javax.persistence.*;
-=======
->>>>>>> 685fdeaf5d46ac8fd3116fe329745c085f287015
 import java.util.HashSet;
 import java.util.Set;
 
