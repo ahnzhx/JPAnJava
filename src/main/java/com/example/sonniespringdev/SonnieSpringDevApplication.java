@@ -6,11 +6,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.repository.query.QueryLookupStrategy;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @SpringBootApplication
-@EnableJpaRepositories(queryLookupStrategy = QueryLookupStrategy.Key.CREATE_IF_NOT_FOUND)
+@EnableJpaRepositories(repositoryBaseClass = SimpleYourRepository.class)
 public class SonnieSpringDevApplication {
 
 	@GetMapping("/hello")

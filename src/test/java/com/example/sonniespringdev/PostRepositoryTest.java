@@ -60,8 +60,15 @@ public class PostRepositoryTest {
 
         Post post = new Post();
         post.setTitle("hibernate");
+
+        //transient 상태
+        assertThat(postRepository.contains(post)).isFalse();
+
         postRepository.save(post);
-        postRepository.findMyPost();
+
+        //persistent 상태
+        assertThat(postRepository.contains(post)).isTrue();
+
 
         postRepository.delete(post);
         postRepository.flush();
