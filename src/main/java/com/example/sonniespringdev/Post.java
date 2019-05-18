@@ -1,16 +1,18 @@
 package com.example.sonniespringdev;
 
+import com.example.sonniespringdev.springDataCommon.PostPublishedEvent;
+import lombok.Data;
+import org.springframework.data.domain.AbstractAggregateRoot;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
-
-import lombok.Data;
-
 @Entity
 @Data
-public class Post {
+public class Post extends AbstractAggregateRoot<Post> {
+
 
     @Id @GeneratedValue
     private Long id;
@@ -34,5 +36,10 @@ public class Post {
         return "Post{" +
                 " title='" + title + '\'' +
                 '}';
+    }
+
+    public Post publish(){
+        this.registerEvent(new PostPublishedEvent(this));
+        return this;
     }
 }
