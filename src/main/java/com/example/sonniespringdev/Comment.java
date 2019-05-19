@@ -1,5 +1,6 @@
 package com.example.sonniespringdev;
 
+import com.example.sonniespringdev.springDataCommon.Post;
 import lombok.Data;
 
 import javax.persistence.Entity;

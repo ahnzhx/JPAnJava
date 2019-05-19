@@ -1,9 +1,10 @@
 package com.example.sonniespringdev;
 
-import com.example.sonniespringdev.springDataCommon.PostPublishedEvent;
+import com.example.sonniespringdev.springDataCommon.Post;
 import com.example.sonniespringdev.springDataCommon.PostRepository;
 import com.example.sonniespringdev.springDataCommon.PostRepositoryTestConfig;
-import org.junit.Before;
+import com.example.sonniespringdev.springDataCommon.QPost;
+import com.querydsl.core.types.Predicate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,23 +67,20 @@ public class PostRepositoryTest {
         assertThat(page.getNumberOfElements()).isEqualTo(1);
     }
 
+    /**
+     * Querydsl을 이용해 select문 날리기
+     */
     @Test
     public void crud() {
 
         Post post = new Post();
         post.setTitle("hibernate");
 
-        //transient 상태
-        assertThat(postRepository.contains(post)).isFalse();
-
         postRepository.save(post.publish());
+        Predicate predicate = QPost.post.title.containsIgnoreCase("Hi");
+        Optional<Post> one = postRepository.findOne(predicate);
+        assertThat(one).isNotEmpty();
 
-        //persistent 상태
-        assertThat(postRepository.contains(post)).isTrue();
-
-
-        postRepository.delete(post);
-        postRepository.flush();
     }
 
     private Post savePost() {

@@ -25,6 +25,9 @@ public class Account {
     private String username;
     private String password;
 
+    private String firstName;
+    private String lastName;
+
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name="street", column = @Column(name="home_street"))

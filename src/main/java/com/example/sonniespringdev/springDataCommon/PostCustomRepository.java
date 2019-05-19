@@ -1,7 +1,5 @@
 package com.example.sonniespringdev.springDataCommon;
 
-import com.example.sonniespringdev.Post;
-
 import java.util.List;
 
 public interface PostCustomRepository<T> {

@@ -1,6 +1,6 @@
-package com.example.sonniespringdev;
+package com.example.sonniespringdev.springDataCommon;
 
-import com.example.sonniespringdev.springDataCommon.PostPublishedEvent;
+import com.example.sonniespringdev.Comment;
 import lombok.Data;
 import org.springframework.data.domain.AbstractAggregateRoot;
 

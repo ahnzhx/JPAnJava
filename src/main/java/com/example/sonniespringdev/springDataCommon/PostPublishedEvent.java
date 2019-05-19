@@ -1,6 +1,5 @@
 package com.example.sonniespringdev.springDataCommon;
 
-import com.example.sonniespringdev.Post;
 import org.springframework.context.ApplicationEvent;
 
 public class PostPublishedEvent extends ApplicationEvent {
