@@ -1,5 +1,6 @@
 package com.example.sonniespringdev.springDataCommon;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +10,14 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("test")
 public class PostControllerTest {
 
     @Autowired
@@ -26,6 +25,7 @@ public class PostControllerTest {
 
     @Autowired
     PostRepository postRepository;
+
 
     @Test
     public void getPost() throws Exception {
@@ -36,5 +36,33 @@ public class PostControllerTest {
                 .andDo(print())
                 .andExpect(content().string("jpa"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void getPosts() throws Exception {
+        createPost();
+
+
+        mockMvc.perform(get("/posts/")
+                        .param("page", "3")
+                        .param("size", "10")
+                        //.param("sort", "created.desc")
+                        .param("sort", "title"))
+                    .andDo(print())
+                    .andExpect(jsonPath("$.content[0].title", is("jpa")))
+                    .andExpect(status().isOk());
+
+
+    }
+
+    private void createPost() {
+        int postsCount = 100;
+        while(postsCount > 0){
+            Post post = new Post();
+            post.setTitle("jpa");
+            postRepository.save(post);
+            postsCount--;
+        }
+
     }
 }

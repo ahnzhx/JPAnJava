@@ -19,7 +19,7 @@ public class Post extends AbstractAggregateRoot<Post> {
     private String title;
     @Lob // 내용이 255자 넘을 가능성이 있을 때, 이 @Lob을 써줌
     private String content;
-    @Temporal(TemporalType.TIMESTAMP) //temporal 타입 3개 중 한개 꼭 써야함
+    @Temporal(TemporalType.TIMESTAMP) //TemporalType 3개 중 한개 꼭 써야함
     private Date created;
     private Integer likeCount;
 

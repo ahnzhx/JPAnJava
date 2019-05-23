@@ -1,6 +1,11 @@
 package com.example.sonniespringdev.springDataCommon;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
+import org.springframework.hateoas.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,5 +31,20 @@ public class PostController {
         final Optional<Post> byId = postRepository.findById(id);
         final Post post = byId.get();
         return post.getTitle();
+    }
+
+    /**
+     * 위의 메소드와 같음! 표현방법이 다름
+     */
+
+    @GetMapping("/posts2/{id}")
+    public String getPost2(@PathVariable("id") Post post){
+        return post.getTitle();
+    }
+
+    @GetMapping("/posts")
+    public PagedResources<Resource<Post>> getPosts(Pageable pageable, PagedResourcesAssembler<Post> assembler){
+        final Page<Post> all = postRepository.findAll(pageable);
+        return assembler.toResource(all);
     }
 }
