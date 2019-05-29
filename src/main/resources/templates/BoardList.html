@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymelaef-extras-springsecurity4"
+xmlns:layout="htt[://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorator="layout/default">
+
+<head>
+    <meta charset="UTF-8" http-equiv="Content-Type" content="text/html;">
+    <title>Listing board</title>
+
+</head>
+<body>
+    <h2 th:text = "${boardSetting}"></h2>
+<button onclick="location.href='createBoard'">글 직성하기</button>
+    <button class="btn_large red"
+            th:utext="${@frontContents.id('hp.common.resource-button.list')}"
+            onclick="/app/mypage/inquiry">목록</button>
+</body>
+</html>
