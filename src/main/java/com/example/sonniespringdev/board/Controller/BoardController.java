@@ -5,10 +5,9 @@ import com.example.sonniespringdev.board.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/board")
@@ -27,6 +26,22 @@ public class BoardController {
     @GetMapping("/create")
     public String createBoard(@RequestAttribute Board board){
         this.boardRepository.save(board);
-        return "/";
+        return "board";
+    }
+
+    @GetMapping("/update/{id}")
+    public String updateBoard(
+            @PathVariable Long id,
+            Model model){
+        Optional<Board> resultBoard = boardRepository.findById(id);
+        model.addAttribute("resultBoard", resultBoard);
+        return "/update/"+id;
+    }
+
+    @PostMapping("/update")
+    public String update(@RequestAttribute Board boardForm){
+
+        boardRepository.save(boardForm);
+        return "board";
     }
 }
