@@ -9,18 +9,24 @@ import java.util.Date;
 @Data
 public class Board {
     @Id @GeneratedValue
-    private Long id;
+    private Long boardId;
 
-    private String title;
+    private String boardTitle;
 
     @Lob
-    private String content;
+    private String boardContent;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date rgDate;
 
     @ManyToOne
     private Authors account;
+
+    @OneToMany(mappedBy = "code")
+    private String boardCode;
+
+    @Transient
+    private String codeName;
 
 
 }

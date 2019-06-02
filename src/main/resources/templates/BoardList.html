@@ -10,8 +10,8 @@ layout:decorator="layout/default">
 
 </head>
 <body>
-<form id="oneToOneInquiryForm" name="oneToOneInquiryForm" th:action="@{/app/mypage/inquiry/update}"
-      method="post" enctype="multipart/form-data">
+<form id="boardForm" name="boardForm"
+      method="get" enctype="multipart/form-data">
 
     <h2 th:text = "${boardSetting}"></h2>
     <button onclick="location.href='createBoard'">글 직성하기</button>

@@ -5,7 +5,9 @@
     <title>Creating board</title>
 </head>
 <body>
-    <form th:action="@{/board/create}" method="post">
+    <form id="boardCreateForm" name="boardCreateForm"
+          th:action="@{/board/create}" method="post">
+        <input type="hidden" id="boardId">
         <input th:title="${title}" id ="boardTitle">
         <input th:text="${content}" id="boardContent">
         <input type="submit" value="submit">

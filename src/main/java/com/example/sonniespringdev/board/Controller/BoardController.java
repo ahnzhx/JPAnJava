@@ -16,6 +16,10 @@ public class BoardController {
     @Autowired
     BoardRepository boardRepository;
 
+
+    /**
+     * hateoas 페이징 추가하기
+     */
     @GetMapping("/")
     public String boardList(Model model){
         String boardSetting = " now I'm setting my first board project.";
@@ -43,5 +47,11 @@ public class BoardController {
 
         boardRepository.save(boardForm);
         return "board";
+    }
+
+    @GetMapping("/delete/{id}")
+    private String deleteBoard(@PathVariable Long id){
+        boardRepository.deleteById(id);
+        return "/boardList";
     }
 }
