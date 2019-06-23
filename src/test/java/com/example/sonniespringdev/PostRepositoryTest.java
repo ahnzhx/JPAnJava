@@ -15,6 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +32,9 @@ public class PostRepositoryTest {
 
     @Autowired
     ApplicationContext applicationContext;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
 
     @Test
@@ -85,7 +90,7 @@ public class PostRepositoryTest {
 
     private Post savePost() {
         Post post = new Post();
-        post.setTitle("sonnie's JPA");
+        post.setTitle("Spring");
         return postRepository.save(post);
     }
 
@@ -99,5 +104,47 @@ public class PostRepositoryTest {
         //update 쿼리를 따로 선언해 줄 필요 없이 findAll()날린다.
         List<Post> all = postRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(hibernate);
+    }
+
+    @Test
+    public void save(){
+        Post post = new Post();
+        post.setTitle("Jpa");
+        postRepository.save(post); //persist
+
+        assertThat(entityManager.contains(post)).isTrue();
+
+        Post postUpdate = new Post();
+        postUpdate.setId(post.getId());
+        postUpdate.setTitle("hibernate");
+        //데이터 가공할 때 꼭 리턴받는 값으로 해야된다
+        final Post updatedPost = postRepository.save(postUpdate);
+
+        assertThat(entityManager.contains(updatedPost)).isTrue();
+        // 또 업데이트 하고싶을 때, updatedPost를 써야함! postUpdate가 아니고!
+        assertThat(entityManager.contains(postUpdate)).isFalse();
+        assertThat(updatedPost != postUpdate);
+
+
+        final List<Post> all = postRepository.findAll();
+        assertThat(all.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void findByTitleStartswith(){
+        Post post = new Post();
+        post.setTitle("Spring data jpa");
+        postRepository.save(post);
+
+        List<Post> all = postRepository.findByTitleStartsWith("Spring");
+        assertThat(all.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void findByTitle(){
+        savePost();
+
+        List<Post> all = postRepository.findByTitle("Spring");
+        assertThat(all.size()).isEqualTo(1);
     }
 }
