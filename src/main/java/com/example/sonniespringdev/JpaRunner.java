@@ -29,7 +29,7 @@ public class JpaRunner implements ApplicationRunner {
 
         Study study = new Study();
         study.setName("Spring data JPA");
-        study.setOwner(account);
+        study.setOwner(account); // 주인이 study라서 반드시 set 해줘야 함
 
         Session session = entityManager.unwrap(Session.class);
         session.save(account);
