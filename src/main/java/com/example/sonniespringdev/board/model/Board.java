@@ -3,9 +3,7 @@ package com.example.sonniespringdev.board.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Data
@@ -23,9 +21,9 @@ public class Board {
 
     @ManyToOne
     private Authors account;
-
-    @OneToMany(mappedBy = "code")
-    private List<String> boardCode = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "code")
+//    private Set<String> boardCode = new HashSet<>();
 
     @Transient
     private String codeName;

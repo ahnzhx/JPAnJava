@@ -1,7 +1,5 @@
 package com.example.sonniespringdev.board.model;
 
-import lombok.Data;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,8 +10,8 @@ public class Codes {
     @Id @GeneratedValue
     private String id;
 
-    @ManyToOne
-    private String code;
+//    @ManyToOne
+//    private String code;
 
 
 
